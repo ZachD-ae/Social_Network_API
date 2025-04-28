@@ -1,20 +1,20 @@
 {
   "name": "social_network_api",
   "version": "1.0.0",
-  "description": "A Social Network API that allows develepoers to test their API requests utilizing Insomnia.",
-  "main": "index.js",
+  "description": "A Social Network API that allows developers to test their API requests utilizing Insomnia.",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts",
-    "build": "tsc"
+    "build": "npx tsc",
+    "start": "npm run build && node dist/server.js",
+    "seed": "npm run build && node  dist/utils/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZachD-ae/Social_Network_API.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "ZachD-ae",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ZachD-ae/Social_Network_API/issues"
@@ -22,11 +22,11 @@
   "homepage": "https://github.com/ZachD-ae/Social_Network_API#readme",
   "dependencies": {
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "express": "^4.18.2",            
     "mongoose": "^8.14.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.1",
+    "@types/express": "^4.17.17",     
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.15.3",
     "nodemon": "^3.1.10",

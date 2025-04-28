@@ -1,13 +1,17 @@
 {
-    "compilerOptions": {
-      "target": "ES2020",
-      "module": "CommonJS",
-      "rootDir": "./src",
-      "outDir": "./dist",
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "skipLibCheck": true,
-      "strict": true
-    }
-  }
-  
+  "compilerOptions": {
+    "target": "ES2020",                       // Use modern JavaScript
+    "module": "ESNext",                        // Allow ES6 imports
+    "moduleResolution": "node",                // Import system like Node.js
+    "rootDir": "./src",                        // Source code is in /src
+    "outDir": "./dist",                        // Compiled JS output into /dist
+    "esModuleInterop": true,                   // Fixes imports for CommonJS modules
+    "allowSyntheticDefaultImports": true,      // Allows default imports from modules
+    "forceConsistentCasingInFileNames": true,   // Case-sensitive file imports
+    "strict": true,                            // Turn on strict type-checking
+    "skipLibCheck": true,                       // Skip library file type checks
+    "resolveJsonModule": true                   // Allow importing JSON files
+  },
+  "include": ["src"],                          // Compile everything inside /src
+  "exclude": ["node_modules", "dist"]           // Ignore node_modules and dist
+}

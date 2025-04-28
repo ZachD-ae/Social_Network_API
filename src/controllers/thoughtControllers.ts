@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Thought } from '../models/Thought';
 import { User } from '../models/User';
 
-export const getAllThoughts = async (req: Request, res: Response): Promise<void> => {
+export const getAllThoughts = async (_req: Request, res: Response): Promise<void> => {
   try {
     const thoughts = await Thought.find();
     res.json(thoughts);
@@ -30,7 +30,7 @@ export const createThought = async (req: Request, res: Response): Promise<void> 
   try {
     const thought = await Thought.create(req.body);
 
-    // Push the thought _id to the associated user's thoughts array
+   
     await User.findByIdAndUpdate(
       req.body.userId,
       { $push: { thoughts: thought._id } },

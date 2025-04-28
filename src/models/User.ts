@@ -19,7 +19,7 @@ const userSchema = new Schema<UserDocument>({
   id: false
 });
 
-// Virtual for friend count
+
 userSchema.virtual('friendCount').get(function() {
   return this.friends.length;
 });

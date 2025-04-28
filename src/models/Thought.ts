@@ -1,4 +1,4 @@
-import { Schema, model, Types, Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import { reactionSchema, ReactionDocument } from './Reaction';
 
 export interface ThoughtDocument extends Document {
@@ -25,7 +25,6 @@ const thoughtSchema = new Schema<ThoughtDocument>(
     }
   );
 
-// Virtual for reaction count
 thoughtSchema.virtual('reactionCount').get(function (this: ThoughtDocument) {
   return this.reactions.length;
 });

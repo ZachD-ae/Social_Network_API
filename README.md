@@ -1,122 +1,83 @@
 # Social Network API
 
-## Description
+A backend API for a social networking application where users can create accounts, share thoughts, react to others' thoughts, and manage a list of friends. Built with **Express.js**, **MongoDB**, and **Mongoose**, and tested using **Insomnia**.
 
-The Social Network API is a backend application built using Node.js, Express.js, MongoDB, and Mongoose. It provides a NoSQL-based API that allows developers to manage users, their thoughts, reactions to thoughts, and user friendships. This application is designed to handle large amounts of unstructured data efficiently, making it an ideal backend for a social media platform.
+## 🧠 Features
 
-The application is tested using Insomnia to perform HTTP requests against a local server.
+### Users
+- Create a new user
+- View all users or a single user by ID
+- Update or delete a user
+- Add or remove friends from a user’s friend list
 
----
+### Thoughts
+- Post a new thought linked to a user
+- View all thoughts or a single thought by ID
+- Update or delete thoughts
+- Automatically remove thought references when deleted
 
-## Table of Contents
+### Reactions
+- Add a reaction to a specific thought
+- Delete a reaction from a thought
+- Reactions are stored as subdocuments within the `Thought` model
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Routes](#api-routes)
-- [Technologies Used](#technologies-used)
-- [Demo](#demo)
-- [License](#license)
-
----
-
-## Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/ZachD-ae/Social_Network_API.git
-   ```
-
-2. Navigate into the project directory:
-
-   ```bash
-   cd Social_Network_API
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Ensure MongoDB is installed and running locally on your machine.
-
----
-
-## Usage
-
-To run the application in development mode with live reloading:
-
-```bash
-npm run dev
-```
-
-To build and run the application in production mode:
-
-```bash
-npm run build
-npm run start
-```
-
-Once the server is running, use Insomnia (or another API client) to send requests to the API endpoints. The server listens on `http://localhost:3001/` by default.
-
----
-
-## API Routes
-
-### User Routes
-
-- `GET /api/users` — Get all users
-- `GET /api/users/:userId` — Get a single user by ID
-- `POST /api/users` — Create a new user
-- `PUT /api/users/:userId` — Update a user by ID
-- `DELETE /api/users/:userId` — Delete a user by ID
-- `POST /api/users/:userId/friends/:friendId` — Add a friend to a user's friend list
-- `DELETE /api/users/:userId/friends/:friendId` — Remove a friend from a user's friend list
-
-### Thought Routes
-
-- `GET /api/thoughts` — Get all thoughts
-- `GET /api/thoughts/:thoughtId` — Get a single thought by ID
-- `POST /api/thoughts` — Create a new thought
-- `PUT /api/thoughts/:thoughtId` — Update a thought by ID
-- `DELETE /api/thoughts/:thoughtId` — Delete a thought by ID
-
-### Reaction Routes (nested under thoughts)
-
-- `POST /api/thoughts/:thoughtId/reactions` — Add a reaction to a thought
-- `DELETE /api/thoughts/:thoughtId/reactions/:reactionId` — Remove a reaction from a thought
-
----
-
-## Technologies Used
+## 📂 Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB
-- Mongoose
-- Insomnia (for API testing)
-- TypeScript (if using TS version)
+- Mongoose ODM
+- TypeScript
+- Insomnia (for route testing)
 
----
+## 📁 File Structure
 
-## Demo
+```
+src/
+├── config/
+│   └── connection.ts        # Mongoose connection logic
+├── controllers/             # Request handlers for each model
+├── models/                  # Mongoose schemas and models
+├── routes/                  # Express routes
+├── server.ts                # App entry point
+```
 
-A walkthrough video demonstrating the API routes, functionality, and testing through Insomnia can be found here:
+## 🧪 API Testing Instructions
 
-[Walkthrough Video Link](#)  
-*(Walkthrough video not uploaded currently)*
+You can test all API endpoints using [Insomnia](https://insomnia.rest/) or Postman:
 
----
+### User Routes
+```
+GET     /api/users
+GET     /api/users/:id
+POST    /api/users
+PUT     /api/users/:id
+DELETE  /api/users/:id
 
-## License
+POST    /api/users/:userId/friends/:friendId
+DELETE  /api/users/:userId/friends/:friendId
+```
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+### Thought Routes
+```
+GET     /api/thoughts
+GET     /api/thoughts/:id
+POST    /api/thoughts
+PUT     /api/thoughts/:id
+DELETE  /api/thoughts/:id
+```
 
----
+### Reaction Routes
+```
+POST    /api/thoughts/:thoughtId/reactions
+DELETE  /api/thoughts/:thoughtId/reactions/:reactionId
+```
 
-## Notes
+## 🎥 Walkthrough Video
 
-- No frontend was built for this application. All functionality is tested through API requests.
-- Data validation is handled at the model level using Mongoose schema validation.
-- Relationships are managed using MongoDB's references and subdocuments.
+[Watch the walkthrough demo here](#)  
+_Paste your deployed walkthrough video link above once recorded._
+
+## ⚖️ License
+
+This project is licensed under the [MIT License](LICENSE).

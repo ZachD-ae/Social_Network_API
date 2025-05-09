@@ -119,5 +119,73 @@ export const getAllThoughts = async (_req: Request, res: Response): Promise<void
       }
     }
   };
+
+  export const addReaction = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { thoughtId } = req.params;
+      const { reactionBody, username } = req.body;
+  
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        {
+          $push: {
+            reactions: {
+              reactionBody,
+              username
+            }
+          }
+        },
+        {
+          new: true,
+          runValidators: true
+        }
+      );
+  
+      if (!updatedThought) {
+        res.status(404).json({ error: 'Thought not found' });
+        return;
+      }
+  
+      res.json(updatedThought);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(400).json({ error: err.message });
+      } else {
+        res.status(400).json({ error: 'Unknown error occurred' });
+      }
+    }
+  };
+
+  export const removeReaction = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { thoughtId, reactionId } = req.params;
+  
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        {
+          $pull: {
+            reactions: { reactionId }
+          }
+        },
+        { new: true }
+      );
+  
+      if (!updatedThought) {
+        res.status(404).json({ error: 'Thought not found' });
+        return;
+      }
+  
+      res.json(updatedThought);
+    } catch (err) {
+      if (err instanceof Error) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.status(500).json({ error: 'Unknown error occurred' });
+      }
+    }
+  };
+  
+
+  
   
   

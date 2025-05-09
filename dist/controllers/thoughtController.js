@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteThought = exports.updateThought = exports.getThoughtById = exports.getAllThoughts = exports.createThought = void 0;
+exports.removeReaction = exports.addReaction = exports.deleteThought = exports.updateThought = exports.getThoughtById = exports.getAllThoughts = exports.createThought = void 0;
 const mongoose_1 = require("mongoose");
 const Thought_1 = __importDefault(require("../models/Thought"));
 const User_1 = __importDefault(require("../models/User"));
@@ -108,3 +108,58 @@ const deleteThought = async (req, res) => {
     }
 };
 exports.deleteThought = deleteThought;
+const addReaction = async (req, res) => {
+    try {
+        const { thoughtId } = req.params;
+        const { reactionBody, username } = req.body;
+        const updatedThought = await Thought_1.default.findByIdAndUpdate(thoughtId, {
+            $push: {
+                reactions: {
+                    reactionBody,
+                    username
+                }
+            }
+        }, {
+            new: true,
+            runValidators: true
+        });
+        if (!updatedThought) {
+            res.status(404).json({ error: 'Thought not found' });
+            return;
+        }
+        res.json(updatedThought);
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            res.status(400).json({ error: err.message });
+        }
+        else {
+            res.status(400).json({ error: 'Unknown error occurred' });
+        }
+    }
+};
+exports.addReaction = addReaction;
+const removeReaction = async (req, res) => {
+    try {
+        const { thoughtId, reactionId } = req.params;
+        const updatedThought = await Thought_1.default.findByIdAndUpdate(thoughtId, {
+            $pull: {
+                reactions: { reactionId }
+            }
+        }, { new: true });
+        if (!updatedThought) {
+            res.status(404).json({ error: 'Thought not found' });
+            return;
+        }
+        res.json(updatedThought);
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        }
+        else {
+            res.status(500).json({ error: 'Unknown error occurred' });
+        }
+    }
+};
+exports.removeReaction = removeReaction;

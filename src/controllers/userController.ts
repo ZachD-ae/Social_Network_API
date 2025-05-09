@@ -99,3 +99,53 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
     }
   };
   
+    export const addFriend = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { userId, friendId } = req.params;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { friends: friendId } }, 
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    res.json(updatedUser);
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
+
+export const removeFriend = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { userId, friendId } = req.params;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { friends: friendId } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    res.json(updatedUser);
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};

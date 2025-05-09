@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
+exports.removeFriend = exports.addFriend = exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const mongoose_1 = require("mongoose");
 const User_1 = __importDefault(require("../models/User"));
 const createUser = async (req, res) => {
@@ -103,3 +103,43 @@ const deleteUser = async (req, res) => {
     }
 };
 exports.deleteUser = deleteUser;
+const addFriend = async (req, res) => {
+    try {
+        const { userId, friendId } = req.params;
+        const updatedUser = await User_1.default.findByIdAndUpdate(userId, { $addToSet: { friends: friendId } }, { new: true });
+        if (!updatedUser) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+        res.json(updatedUser);
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        }
+        else {
+            res.status(500).json({ error: 'Unknown error occurred' });
+        }
+    }
+};
+exports.addFriend = addFriend;
+const removeFriend = async (req, res) => {
+    try {
+        const { userId, friendId } = req.params;
+        const updatedUser = await User_1.default.findByIdAndUpdate(userId, { $pull: { friends: friendId } }, { new: true });
+        if (!updatedUser) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+        res.json(updatedUser);
+    }
+    catch (err) {
+        if (err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        }
+        else {
+            res.status(500).json({ error: 'Unknown error occurred' });
+        }
+    }
+};
+exports.removeFriend = removeFriend;

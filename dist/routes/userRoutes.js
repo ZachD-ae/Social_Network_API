@@ -8,4 +8,6 @@ router.get('/', userController_1.getAllUsers);
 router.get('/:id', userController_1.getUserById);
 router.put('/:id', userController_1.updateUser);
 router.delete('/:id', userController_1.deleteUser);
+router.post('/:userId/friends/:friendId', userController_1.addFriend);
+router.delete('/:userId/friends/:friendId', userController_1.removeFriend);
 exports.default = router;

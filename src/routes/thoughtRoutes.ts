@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createThought, getAllThoughts, getThoughtById, updateThought, deleteThought } from '../controllers/thoughtController';
+import { createThought, getAllThoughts, getThoughtById, updateThought, deleteThought, addReaction, removeReaction } from '../controllers/thoughtController';
 
 const router = Router();
 
@@ -9,6 +9,8 @@ router.get('/', getAllThoughts);
 router.get('/:id', getThoughtById);
 router.put('/:id', updateThought);
 router.delete('/:id', deleteThought);
+router.post('/:thoughtId/reactions', addReaction);
+router.delete('/:thoughtId/reactions/:reactionId', removeReaction);
 
 
 export default router;

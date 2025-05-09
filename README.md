@@ -75,8 +75,8 @@ DELETE  /api/thoughts/:thoughtId/reactions/:reactionId
 
 ## 🎥 Walkthrough Video
 
-[Watch the walkthrough demo here](#)  
-_Paste your deployed walkthrough video link above once recorded._
+[Watch the walkthrough demo here](https://drive.google.com/file/d/1ASwkYNYynwjvfpSKRKPZNqbsPjZPuorj/view?usp=sharing)  
+
 
 ## ⚖️ License
 
